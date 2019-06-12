@@ -1,0 +1,49 @@
+// AB8A6.cpp
+#include <iostream>
+using namespace std;
+
+int lottoZahlen[49];
+int anzahlKugeln;
+
+void reset();
+int ziehe();
+void entferneKugel(int index);
+
+int main()
+{
+	reset();
+
+	for (int i = 0; i < 6; i++)                 //6x wiederholen
+	{
+		int index = ziehe();                      //weißt index die Zahl welche die ziehe() Funktion ausgibt zu
+		cout << lottoZahlen[index] << endl;       //gibt die Zahl an der Stelle von ziehe() aus
+		entferneKugel(index);                     //entfernt die kugel mit der gerade ausgegebenen Zahl
+	}
+
+	return 0;
+}
+
+void reset()                                  //Funktion um Feld zu initisalisieren
+{
+	anzahlKugeln = 49;
+
+	for (int i = 0; i < anzahlKugeln; i++)
+	{
+		lottoZahlen[i] = i + 1;                   //1-49
+	}
+}
+
+int ziehe()
+{
+	return rand() % anzahlKugeln;               //zufällige Zahl von 1-49
+}
+
+void entferneKugel(int index)
+{
+	anzahlKugeln--;                             //1 Kugel weniger nach Ziehung
+
+	for (int i = index; i < anzahlKugeln; i++)  //alle Feldelemente ab der gezogenen Zahl um 1 nach oben verschieben
+	{
+		lottoZahlen[i] = lottoZahlen[i + 1];
+	}
+}
